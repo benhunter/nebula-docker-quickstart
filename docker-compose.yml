@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  ssh:
+    build:
+      context: ./ubuntu-ssh
+      dockerfile: Dockerfile
+    command: /usr/sbin/sshd -D
+    volumes:
+      - ./ubuntu-ssh/sshd_config:/etc/ssh/sshd_config:ro
+      - ./ubuntu-ssh/ssh_keys:/root/.ssh
+    ports:
+      - "2222:22"
+    networks:
+      # - private_network
+      private_network:
+        ipv4_address: 192.168.42.22
+
+  ubuntu1:
+    image: ubuntu:latest
+    command: tail -f /dev/null
+    # ports:
+      # - "8888:80"
+    networks:
+      - private_network
+      # private_network:
+        # ipv4_address: 192.168.42.1
+
+  ubuntu2:
+    image: ubuntu:latest
+    command: tail -f /dev/null
+    networks:
+      - private_network
+      # private_network:
+        # ipv4_address: 192.168.42.2
+
+  ubuntu3:
+    image: ubuntu:latest
+    command: tail -f /dev/null
+    networks:
+      - private_network
+      # private_network:
+        # ipv4_address: 192.168.42.3
+
+networks:
+  private_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.42.0/24
