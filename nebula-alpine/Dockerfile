@@ -15,10 +15,6 @@ RUN cd /go/src/github.com/slackhq/nebula \
     && mv /go/src/github.com/slackhq/nebula/build/$(echo ${TARGETPLATFORM} | sed -e "s/\/v/-/g" -e "s/\//-/g")/nebula /go/build/${TARGETPLATFORM}/ \
     && mv /go/src/github.com/slackhq/nebula/build/$(echo ${TARGETPLATFORM} | sed -e "s/\/v/-/g" -e "s/\//-/g")/nebula-cert /go/build/${TARGETPLATFORM}/
 
-# TODO testing
-# RUN cd /go/src/github.com/slackhq/nebula && go mod download golang.org/x/net
-# RUN cd /go/src/github.com/slackhq/nebula && VERSION=v1.7.2 make BUILD_NUMBER="${VERSION#v}" build/$(echo ${TARGETPLATFORM:-linux/arm64} | sed -e "s/\/v/-/g" -e "s/\//-/g")/nebula
-
 FROM --platform=${TARGETPLATFORM} alpine:latest
 
 ARG BUILD_DATE
