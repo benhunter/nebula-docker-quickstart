@@ -347,3 +347,8 @@ firewall:
       proto: tcp
       groups:
         - servers
+
+    - port: 22
+      proto: tcp
+      groups:
+        - servers

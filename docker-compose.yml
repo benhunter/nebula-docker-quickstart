@@ -75,20 +75,23 @@ services:
     network_mode: "service:server2"
     stdin_open: true
     tty: true
+    volumes:
+      - ./ubuntu-ssh/ssh_keys:/root/.ssh
 
-  # ssh:
-  #   build:
-  #     context: ./ubuntu-ssh
-  #     dockerfile: Dockerfile
-  #   command: /usr/sbin/sshd -D
-  #   volumes:
-  #     - ./ubuntu-ssh/sshd_config:/etc/ssh/sshd_config:ro
-  #     - ./ubuntu-ssh/ssh_keys:/root/.ssh
-  #   ports:
-  #     - "2222:22"
-  #   networks:
-  #     private_network:
-  #       ipv4_address: 192.168.42.22
+  ssh1:
+    build:
+      context: ./ubuntu-ssh
+      dockerfile: Dockerfile
+    command: /usr/sbin/sshd -D
+    volumes:
+      - ./ssh1/sshd_config:/etc/ssh/sshd_config:ro
+      - ./ubuntu-ssh/ssh_keys:/root/.ssh
+    network_mode: "service:server1"
+    # ports:
+    #   - "2222:22"
+    # networks:
+    #   private_network:
+    #     ipv4_address: 192.168.42.22
 
   # ubuntu2:
   #   image: ubuntu:latest
