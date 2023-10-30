@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.21-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/arm64} golang:1.21-alpine as builder
 
 ARG VERSION=v1.7.2
 ARG TARGETPLATFORM=linux/arm64
