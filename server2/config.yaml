@@ -5,8 +5,8 @@
 pki:
   # The CAs that are accepted by this node. Must contain one or more certificates created by 'nebula-cert ca'
   ca: /etc/nebula/ca.crt
-  cert: /etc/nebula/lighthouse.crt
-  key: /etc/nebula/lighthouse.key
+  cert: /etc/nebula/server2.crt
+  key: /etc/nebula/server2.key
   # blocklist is a list of certificate fingerprints that we will refuse to talk to
   #blocklist:
   #  - c99d4e650533b92061b09918e838a5a0a6aaee21eed1d12fd937682865936c72
@@ -18,8 +18,8 @@ pki:
 # The syntax is:
 #   "{nebula ip}": ["{routable ip/dns name}:{routable port}"]
 # Example, if your lighthouse has the nebula IP of 192.168.100.1 and has the real ip address of 100.64.22.11 and runs on port 4242:
-# static_host_map:
-  # "192.168.100.1": ["100.64.22.11:4242"]
+static_host_map:
+  "192.168.100.1": ["192.168.42.42:4242"] # lighthouse
 
 # The static_map config stanza can be used to configure how the static_host_map behaves.
 #static_map:
@@ -38,7 +38,7 @@ pki:
 lighthouse:
   # am_lighthouse is used to enable lighthouse functionality for a node. This should ONLY be true on nodes
   # you have configured to be lighthouses in your network
-  am_lighthouse: true 
+  am_lighthouse: false
   # serve_dns optionally starts a dns listener that responds to various queries and can even be
   # delegated to for resolution
   #serve_dns: false
@@ -48,12 +48,12 @@ lighthouse:
     #port: 53
   # interval is the number of seconds between updates from this node to a lighthouse.
   # during updates, a node sends information about its current IP addresses to each node.
-  # interval: 60
+  interval: 60
   # hosts is a list of lighthouse hosts this node should report to and query from
   # IMPORTANT: THIS SHOULD BE EMPTY ON LIGHTHOUSE NODES
   # IMPORTANT2: THIS SHOULD BE LIGHTHOUSES' NEBULA IPs, NOT LIGHTHOUSES' REAL ROUTABLE IPs
-  # hosts:
-    # - "192.168.100.1"
+  hosts:
+    - "192.168.100.1"
 
   # remote_allow_list allows you to control ip ranges that this node will
   # consider when handshaking to another node. By default, any remote IPs are
@@ -336,9 +336,9 @@ firewall:
       proto: icmp
       host: any
 
-    # Allow tcp/443 from any host with BOTH laptop and home group
+    # Allow tcp/443 from any host with BOTH server and cloud group
     - port: 443
       proto: tcp
       groups:
-        - laptop
-        - home
+        - server
+        - cloud

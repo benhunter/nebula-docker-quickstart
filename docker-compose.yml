@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   lighthouse:
-    build: nebula
+    build: nebula-alpine
     networks:
       private_network:
         ipv4_address: 192.168.42.42
@@ -18,38 +18,55 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
 
-  ssh:
-    build:
-      context: ./ubuntu-ssh
-      dockerfile: Dockerfile
-    command: /usr/sbin/sshd -D
+  server1:
+    build: nebula-alpine
+    networks:
+      - private_network
     volumes:
-      - ./ubuntu-ssh/sshd_config:/etc/ssh/sshd_config:ro
-      - ./ubuntu-ssh/ssh_keys:/root/.ssh
-    ports:
-      - "2222:22"
-    networks:
-      # - private_network
-      private_network:
-        ipv4_address: 192.168.42.22
+      - ./server1/config.yaml:/config/config.yaml:ro
+      - ./server1/pki:/etc/nebula/:ro
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
-  ubuntu1:
-    image: ubuntu:latest
-    command: tail -f /dev/null
-    # ports:
-      # - "8888:80"
+  server2:
+    build: nebula-alpine
     networks:
       - private_network
-      # private_network:
-        # ipv4_address: 192.168.42.1
+    volumes:
+      - ./server2/config.yaml:/config/config.yaml:ro
+      - ./server2/pki:/etc/nebula/:ro
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
 
-  ubuntu2:
-    image: ubuntu:latest
-    command: tail -f /dev/null
-    networks:
-      - private_network
-      # private_network:
-        # ipv4_address: 192.168.42.2
+  # ssh:
+  #   build:
+  #     context: ./ubuntu-ssh
+  #     dockerfile: Dockerfile
+  #   command: /usr/sbin/sshd -D
+  #   volumes:
+  #     - ./ubuntu-ssh/sshd_config:/etc/ssh/sshd_config:ro
+  #     - ./ubuntu-ssh/ssh_keys:/root/.ssh
+  #   ports:
+  #     - "2222:22"
+  #   networks:
+  #     private_network:
+  #       ipv4_address: 192.168.42.22
+
+  # ubuntu2:
+  #   image: ubuntu:latest
+  #   command: tail -f /dev/null
+  #   networks:
+  #     - private_network
+  #     # private_network:
+  #       # ipv4_address: 192.168.42.12
+  #   cap_add:
+  #     - NET_ADMIN
+  #   devices:
+  #     - /dev/net/tun:/dev/net/tun
 
 networks:
   private_network:

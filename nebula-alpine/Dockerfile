@@ -33,7 +33,7 @@ LABEL maintainer="benhunter" \
       org.opencontainers.image.version=$VERSION \
       org.opencontainers.image.revision=$VCS_REF \
       org.opencontainers.image.vendor="benhunter" \
-      org.opencontainers.image.title="nebula" \
+      org.opencontainers.image.title="nebula-alpine" \
       org.opencontainers.image.description="Nebula is a scalable overlay networking tool with a focus on performance, simplicity and security" \
       org.opencontainers.image.licenses="MIT"
 

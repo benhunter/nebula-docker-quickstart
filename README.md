@@ -34,3 +34,9 @@ Run and attach to shell
 ```sh
 docker run -it --rm -v ./lighthouse/config.yaml:/config/config.yaml -v ./lighthouse/pki:/etc/nebula --cap-add=NET_ADMIN --device /dev/net/tun --entrypoint sh nebula
 ```
+
+See connection
+```sh
+docker compose exec server1 ping 192.168.100.1
+docker compose exec lighthouse ping 192.168.100.11
+```
