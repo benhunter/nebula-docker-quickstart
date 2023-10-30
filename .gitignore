@@ -5,3 +5,5 @@ authorized_keys
 
 pki/*
 */pki/*
+*.crt
+*.key
