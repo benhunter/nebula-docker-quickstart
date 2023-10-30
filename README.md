@@ -2,7 +2,7 @@
 
 A Nebula overlay network in Docker Compose. Configures a Lighthouse and two server endpoints. Demonstrates nginx and ssh accessible only from inside the overlay network.
 
-Tested on Mac.
+Based on the [Nebula Quick Start Guide](https://nebula.defined.net/docs/guides/quick-start/). Tested on Mac.
 
 # Setup
 
@@ -70,3 +70,4 @@ Direct ssh (would reqire a host port mapping)
 ```sh
 ssh -i ubuntu-ssh/ssh_keys/id_rsa -p 2222 root@localhost
 ```
+
