@@ -27,12 +27,12 @@ docker compose down && docker compose up -d --build
 
 Run single container with normal nebula entrypoint
 ```sh
-docker run --rm -v ./lighthouse/config.yaml:/config/config.yaml -v ./lighthouse/pki:/etc/nebula --cap-add=NET_ADMIN --device /dev/net/tun nebula
+docker run --rm -v ./lighthouse/config.yaml:/config/config.yaml -v ./lighthouse/pki:/etc/nebula --cap-add=NET_ADMIN --device /dev/net/tun nebula-alpine
 ```
 
 Run and attach to shell
 ```sh
-docker run -it --rm -v ./lighthouse/config.yaml:/config/config.yaml -v ./lighthouse/pki:/etc/nebula --cap-add=NET_ADMIN --device /dev/net/tun --entrypoint sh nebula
+docker run -it --rm -v ./lighthouse/config.yaml:/config/config.yaml -v ./lighthouse/pki:/etc/nebula --cap-add=NET_ADMIN --device /dev/net/tun --entrypoint sh nebula-alpine
 ```
 
 See connection

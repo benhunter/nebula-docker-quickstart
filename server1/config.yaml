@@ -340,5 +340,10 @@ firewall:
     - port: 443
       proto: tcp
       groups:
-        - server
-        - home
+        - servers
+        # - home
+
+    - port: 80
+      proto: tcp
+      groups:
+        - servers
