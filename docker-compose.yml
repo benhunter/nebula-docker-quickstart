@@ -9,19 +9,16 @@ services:
     volumes:
       - ./lighthouse/config.yaml:/config/config.yaml:ro
       - ./lighthouse/pki:/etc/nebula/:ro
-      # - ./lighthouse/pki/ca.crt:/etc/nebula/ca.crt:ro
-      # - ./lighthouse/pki/lighthouse.crt:/etc/nebula/lighthouse.crt:ro
-      # - ./lighthouse/pki/lighthouse.key:/etc/nebula/lighthouse.key:ro
     cap_add:
       - NET_ADMIN
-      # - mknod
     devices:
       - /dev/net/tun:/dev/net/tun
 
   server1:
     build: nebula-alpine
     networks:
-      - private_network
+      private_network:
+        ipv4_address: 192.168.42.11
     volumes:
       - ./server1/config.yaml:/config/config.yaml:ro
       - ./server1/pki:/etc/nebula/:ro
@@ -33,7 +30,8 @@ services:
   server2:
     build: nebula-alpine
     networks:
-      - private_network
+      private_network:
+        ipv4_address: 192.168.42.12
     volumes:
       - ./server2/config.yaml:/config/config.yaml:ro
       - ./server2/pki:/etc/nebula/:ro
@@ -56,19 +54,6 @@ services:
     # ports:
     #   - "80:80"
     #   - "443:443"
-
-  # netshoot:
-  #   image: benhunter/netshoot:latest
-  #   networks:
-  #     - private_network
-  #   stdin_open: true
-  #   tty: true
-
-  # netshoot1:
-  #   image: benhunter/netshoot:latest
-  #   network_mode: "service:server1"
-  #   stdin_open: true
-  #   tty: true
 
   netshoot2:
     image: benhunter/netshoot:latest
