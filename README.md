@@ -1,4 +1,6 @@
-# nebula-docker-quickstart
+# Nebula Docker Quickstart
+
+A Nebula overlay network in Docker Compose. Configures a Lighthouse and two server endpoints. Demonstrates nginx and ssh accessible from only inside the overlay network.
 
 # Setup
 
