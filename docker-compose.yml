@@ -6,6 +6,18 @@ services:
     networks:
       private_network:
         ipv4_address: 192.168.42.42
+    volumes:
+      - ./lighthouse/config.yaml:/config/config.yaml:ro
+      - ./lighthouse/pki:/etc/nebula/:ro
+      # - ./lighthouse/pki/ca.crt:/etc/nebula/ca.crt:ro
+      # - ./lighthouse/pki/lighthouse.crt:/etc/nebula/lighthouse.crt:ro
+      # - ./lighthouse/pki/lighthouse.key:/etc/nebula/lighthouse.key:ro
+    cap_add:
+      - NET_ADMIN
+      # - mknod
+    devices:
+      - /dev/net/tun:/dev/net/tun
+
   ssh:
     build:
       context: ./ubuntu-ssh

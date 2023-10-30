@@ -2,3 +2,6 @@ ssh_keys/*
 id_rsa
 id_rsa.pub
 authorized_keys
+
+pki/*
+*/pki/*
